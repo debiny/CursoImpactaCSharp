@@ -18,6 +18,11 @@ namespace CSharp.Capitulo02.GeradorSenha
             Senha senha = new();
             Console.Write($"Senha gerada {senha} ");
 
+            //outra forma de instanciar
+            Console.Write($"Senha gerada {new Senha()}");
+            Console.Write($"Senha gerada {new Senha(quantidadeDigitos).Valor}");
+
+
         }
 
         private static int ObterQuantidadeDigitos()
