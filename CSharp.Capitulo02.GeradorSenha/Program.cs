@@ -15,18 +15,8 @@ namespace CSharp.Capitulo02.GeradorSenha
 
             } while (quantidadeDigitos == 0);
 
-            var senha = string.Empty;
-            var randomico = new Random();
-
-            for (int i = 0; i < quantidadeDigitos; i++)
-            {
-                var numero = randomico.Next(10);
-                senha += numero;
-                Console.Write($"{i}=>{senha}  ");
-
-            }
-
-            Console.Write($"Senha gerada {senha}  ");
+            Senha senha = new();
+            Console.Write($"Senha gerada {senha} ");
 
         }
 
