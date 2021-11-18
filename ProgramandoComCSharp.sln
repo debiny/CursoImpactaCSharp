@@ -15,7 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fintech.Dominio", "Fintech.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fintech.Correntista.Wpf", "Fintech.Correntista.Wpf\Fintech.Correntista.Wpf.csproj", "{4FFB75B7-4DC7-492D-9382-07C4B6CFB7B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp.Capitulo02.GeradorSenhaTests", "CSharp.Capitulo02.GeradorSenhaTests\CSharp.Capitulo02.GeradorSenhaTests.csproj", "{2F64CAD5-0D8D-49B8-905A-C6F8BC24326C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CSharp.Capitulo02.GeradorSenhaTests", "CSharp.Capitulo02.GeradorSenhaTests\CSharp.Capitulo02.GeradorSenhaTests.csproj", "{2F64CAD5-0D8D-49B8-905A-C6F8BC24326C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A27D4CB6-FF41-41B6-9C78-DE644EA37F8B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

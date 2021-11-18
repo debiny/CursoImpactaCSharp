@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Fintech.Dominio.Entidades.Agencia">
-    <Position X="12.75" Y="2.5" Width="1.5" />
+    <Position X="2.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAEAAAgAAAAAAAAAAAABAAA=</HashCode>
       <FileName>Entidades\Agencia.cs</FileName>
@@ -11,39 +11,62 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Fintech.Dominio.Entidades.Banco">
-    <Position X="15.5" Y="2.5" Width="1.5" />
+    <Position X="2" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBAAA=</HashCode>
       <FileName>Entidades\Banco.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Fintech.Dominio.Entidades.Cliente">
-    <Position X="7.5" Y="2.5" Width="1.5" />
+    <Position X="12" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAACAAgAAAAACAAAIAAAEAAAAAAAEAEAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAgAAAAACAAAIAAAAAAAAgAAEAgAA=</HashCode>
       <FileName>Entidades\Cliente.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Endereco" />
       <Property Name="Sexo" />
+      <Property Name="EnderecoResidencial" />
     </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Contas" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Fintech.Dominio.Entidades.ContaCorrente">
-    <Position X="10" Y="2.5" Width="1.5" />
+    <Position X="6" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAACAAAEAAQAAAAQAAAIAAAABAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
       <FileName>Entidades\ContaCorrente.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Agencia" />
-      <Property Name="Cliente" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Fintech.Dominio.Entidades.Endereco">
-    <Position X="4.5" Y="2.25" Width="1.5" />
+    <Position X="15.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIEAAAAAACAAAAAAAAAAAAAAAABAAA=</HashCode>
       <FileName>Entidades\Endereco.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fintech.Dominio.Entidades.Conta">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAACAAAEAAQAAAAQAAAIAAAABAAA=</HashCode>
+      <FileName>Entidades\Conta.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Agencia" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Fintech.Dominio.Entidades.Poupanca" Collapsed="true">
+    <Position X="9.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Entidades\Poupanca.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fintech.Dominio.Entidades.ContaEspecial" Collapsed="true">
+    <Position X="1.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entidades\ContaEspecial.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="Fintech.Dominio.Entidades.Sexo">
