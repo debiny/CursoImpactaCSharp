@@ -2,6 +2,12 @@
 {
     public class ContaEspecial:ContaCorrente
     {
+        
+        public ContaEspecial(Agencia agencia, int numero, string digitoVerificador, decimal limite):base(agencia,numero,digitoVerificador)
+        {
+            Limite = limite;
+        }
+
         public decimal Limite { get; set; }
 
         //substitui o metodo virtual

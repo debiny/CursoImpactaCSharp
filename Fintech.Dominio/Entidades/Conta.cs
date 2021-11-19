@@ -6,6 +6,13 @@ namespace Fintech.Dominio.Entidades
     //classe conta nao pode ser instanciada porque ela nao tem um significado completo, para isso usa-se o obstract
     public abstract class Conta
     {
+        protected Conta(Agencia agencia, int numero, string digitoVerificador)
+        {
+            Agencia = agencia;
+            Numero = numero;
+            DigitoVerificador = digitoVerificador;
+        }
+
         public int Id { get; set; }
         public Agencia Agencia { get; set; }
         public int Numero { get; set; }

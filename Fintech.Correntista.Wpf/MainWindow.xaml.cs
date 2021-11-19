@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-
+using System.Windows.Controls;
 
 namespace Fintech.Correntista.Wpf
 {
@@ -12,6 +12,7 @@ namespace Fintech.Correntista.Wpf
     public partial class MainWindow : Window
     {
         List<Cliente> clientes = new();
+        Cliente clienteSelecionado;
 
         //contrutor é o método que tem o mesmo nome da classe
         public MainWindow()
@@ -29,6 +30,18 @@ namespace Fintech.Correntista.Wpf
 
             clienteDataGrid.ItemsSource = clientes;
 
+            //TODO colocar o description no combobox
+            tipoContaComboBox.Items.Add(TipoConta.ContaCorrente);
+            tipoContaComboBox.Items.Add(TipoConta.ContaEspecial);
+            tipoContaComboBox.Items.Add(TipoConta.Poupanca);
+
+            //forma de instanciar a classe
+            var banco1 = new Banco();
+            banco1.Nome = "Banco1";
+            banco1.Numero = 123;
+
+            //outra forma de instanciar a classe
+            bancoComboBox.Items.Add(new Banco() { Nome = "Banco dois", Numero = 942 });
         }
 
         private void incluirClienteButton_Click(object sender, RoutedEventArgs e)
@@ -50,7 +63,7 @@ namespace Fintech.Correntista.Wpf
 
             cliente.Nome = nomeTextBox.Text;
             //Converter o componente Select Item que era objetct para o formato do Sexo usando o Cast
-            cliente.Sexo =(Sexo)sexoComboBox.SelectedItem;
+            cliente.Sexo = (Sexo)sexoComboBox.SelectedItem;
 
             clientes.Add(cliente);
 
@@ -75,9 +88,86 @@ namespace Fintech.Correntista.Wpf
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SelecionarClienteButtonClick(object sender, RoutedEventArgs e)
         {
+            var botaoClicado = (Button)sender;
+            //var clienteSelecionado = botaoClicado.DataContext;
+            //this.clienteSelecionado = (Cliente)clienteSelecionado;
 
+            clienteSelecionado = (Cliente)botaoClicado.DataContext;
+
+            clienteTextBox.Text = $"{ clienteSelecionado.Nome} - {clienteSelecionado.CPF}";
+
+            contasTabItem.Focus();
+
+        }
+
+        private void tipoContaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tipoContaComboBox.SelectedItem == null)
+                return;
+            {
+
+            }
+            var tipoConta = (TipoConta)tipoContaComboBox.SelectedItem;
+
+            if (tipoConta == TipoConta.ContaEspecial)
+            {
+                limiteDockPanel.Visibility = Visibility.Visible;
+                limiteTextBox.Focus();
+            }
+            else
+            {
+                limiteDockPanel.Visibility = Visibility.Collapsed;
+
+            }
+        }
+
+        private void incluirContaButton_Click(object sender, RoutedEventArgs e)
+        {
+            Conta conta = null;
+            var agencia = new Agencia();
+            agencia.Banco = (Banco)bancoComboBox.SelectedItem;
+            agencia.Numero = Convert.ToInt32(numeroAgenciaTextBox.Text);
+            agencia.Digito = Convert.ToInt32(dvAgenciaTextBox.Text);
+
+            var numero = Convert.ToInt32(numeroContaTextBox.Text);
+            var digitoVerificador = dvContaTextBox.Text;
+            var tipoConta = (TipoConta)tipoContaComboBox.SelectedItem;
+
+
+            switch (tipoConta)
+            {
+                case TipoConta.ContaCorrente:
+                    conta = new ContaCorrente(agencia, numero, digitoVerificador);
+                    break;
+                case TipoConta.ContaEspecial:
+                    var limite = Convert.ToDecimal(limiteTextBox.Text);
+                    conta = new ContaEspecial(agencia, numero, digitoVerificador, limite);
+                    break;
+                case TipoConta.Poupanca:
+                    conta = new Poupanca(agencia, numero, digitoVerificador);
+                    break;
+            }
+
+            clienteSelecionado.Contas.Add(conta);
+
+            MessageBox.Show("Conta adicionada com sucesso!");
+            LimparControlesConta();
+            clienteDataGrid.Items.Refresh();
+            clientesTabItem.Focus();
+        }
+
+        private void LimparControlesConta()
+        {
+            clienteTextBox.Clear();
+            bancoComboBox.SelectedIndex = -1;
+            numeroAgenciaTextBox.Clear();
+            dvAgenciaTextBox.Clear();
+            numeroContaTextBox.Clear();
+            dvContaTextBox.Clear();
+            tipoContaComboBox.SelectedIndex = -1;
+            limiteTextBox.Clear();
         }
     }
 }
