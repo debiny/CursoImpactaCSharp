@@ -19,10 +19,13 @@ namespace Fintech.Dominio.Entidades
         public string DigitoVerificador { get; set; }
         public decimal Saldo { get; set; }
         public Cliente Cliente { get; set; }
-
+        public List<Movimento> Movimentos { get; set; } = new List<Movimento>();
+    
         //metodo virtual pode ser substituido por um override na classe filha
         public virtual void EfetuarOperacao(decimal valor, Operacao operacao)
         {
+            var sucesso = true;
+
             switch (operacao)
             {
                 case Operacao.Deposito:
@@ -31,7 +34,13 @@ namespace Fintech.Dominio.Entidades
                 case Operacao.Saque:
                     if (Saldo > valor)
                         Saldo -= valor;
+                    else
+                        sucesso = false;
                     break;
+            }
+            if (sucesso)
+            {
+                Movimentos.Add(new Movimento(operacao, valor));
             }
         }
 
