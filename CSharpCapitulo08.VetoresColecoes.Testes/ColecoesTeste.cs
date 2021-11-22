@@ -50,7 +50,7 @@ namespace CSharpCapitulo08.VetoresColecoes.Testes
             var feriados = new Dictionary<DateTime, string>();
             feriados.Add(new DateTime(2021, 12, 25), "Natal");
             feriados.Add(new DateTime(2022, 01, 01), "Ano novo");
-            feriados.Add(new DateTime(2021, 11, 20), "Consciência Negra");
+            //feriados.Add(new DateTime(2021, 11, 20), "Consciência Negra");
 
             var natal = feriados[new DateTime(2021, 12, 25)];
 
@@ -58,6 +58,10 @@ namespace CSharpCapitulo08.VetoresColecoes.Testes
             {
                 Console.WriteLine($"{feriado.Key:d} : {feriado.Value}");
             }
+
+            Console.WriteLine(feriados.ContainsKey(Convert.ToDateTime("20/11/21")));
+            Console.WriteLine(feriados.ContainsValue("Natal"));
+
         }
 
     }
