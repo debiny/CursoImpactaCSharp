@@ -20,11 +20,12 @@ namespace Fintech.Dominio.Entidades
         public decimal Saldo { get; set; }
         public Cliente Cliente { get; set; }
         public List<Movimento> Movimentos { get; set; } = new List<Movimento>();
-    
+
         //metodo virtual pode ser substituido por um override na classe filha
-        public virtual void EfetuarOperacao(decimal valor, Operacao operacao)
+        public virtual Movimento EfetuarOperacao(decimal valor, Operacao operacao, decimal limite = 0)
         {
             var sucesso = true;
+            Movimento movimento = null;
 
             switch (operacao)
             {
@@ -32,7 +33,7 @@ namespace Fintech.Dominio.Entidades
                     Saldo += valor;
                     break;
                 case Operacao.Saque:
-                    if (Saldo > valor)
+                    if (Saldo  + limite> valor)
                         Saldo -= valor;
                     else
                         sucesso = false;
@@ -40,8 +41,13 @@ namespace Fintech.Dominio.Entidades
             }
             if (sucesso)
             {
-                Movimentos.Add(new Movimento(operacao, valor));
+                movimento = new Movimento(operacao, valor);
+                movimento.Conta = this;
+
+                Movimentos.Add(movimento);
             }
+            return movimento;
+
         }
 
         //metodo abstract nao possui implementação na classe base mais as classes filhas precisam implementar
@@ -58,7 +64,7 @@ namespace Fintech.Dominio.Entidades
                 erro.Add("Digito verificador é inválido");
 
             return erro;
-            
+
         }
     }
 }

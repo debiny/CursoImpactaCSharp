@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fintech.Dominio\Fintech.Dominio.csproj" />
+    <ProjectReference Include="..\Fintech.Repositories.SistemaArquivos\Fintech.Repositories.SistemaArquivos.csproj" />
   </ItemGroup>
 
 </Project>
