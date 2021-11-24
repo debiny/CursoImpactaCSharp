@@ -14,12 +14,14 @@ namespace Fintech.Correntista.Wpf
     {
         List<Cliente> clientes = new();
         Cliente clienteSelecionado;
+        private readonly MovimentoRepositorio repositorio = new(Properties.Settings.Default.CaminhoArquivoMovimento);
 
         //contrutor é o método que tem o mesmo nome da classe
         public MainWindow()
         {
             InitializeComponent();
             PopularControles();
+
         }
 
         //void sao metodos que nao retornam nada
@@ -198,12 +200,22 @@ namespace Fintech.Correntista.Wpf
 
             if (movimento == null) return;
      
-            var repositorio = new MovimentoRepositorio();
             repositorio.Inserir(movimento);
 
             movimentacaoDataGrid.ItemsSource = conta.Movimentos;
             movimentacaoDataGrid.Items.Refresh();
 
+            saldoTextBox.Text = conta.Saldo.ToString("C");
+        }
+
+        private void contaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (contaComboBox.SelectedIndex == -1) return;
+
+            var conta = (Conta)contaComboBox.SelectedItem;
+
+            conta.Movimentos = repositorio.Selecionar(conta.Agencia.Numero, conta.Numero);
+            movimentacaoDataGrid.ItemsSource = conta.Movimentos;
             saldoTextBox.Text = conta.Saldo.ToString("C");
         }
     }
