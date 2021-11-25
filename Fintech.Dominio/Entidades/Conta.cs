@@ -40,7 +40,7 @@ namespace Fintech.Dominio.Entidades
         //metodo virtual pode ser substituido por um override na classe filha
         public virtual Movimento EfetuarOperacao(decimal valor, Operacao operacao, decimal limite = 0)
         {
-            var sucesso = true;
+            //var sucesso = true;
             Movimento movimento = null;
 
             switch (operacao)
@@ -52,16 +52,20 @@ namespace Fintech.Dominio.Entidades
                     if (Saldo  + limite> valor)
                         Saldo -= valor;
                     else
-                        sucesso = false;
+                    {
+                        //sucesso = false;
+                        //throw new SystemException("Saldo insuficiente");
+                        throw new SaldoInsuficienteException();
+                    }
                     break;
             }
-            if (sucesso)
-            {
+            //if (sucesso)
+            //{
                 movimento = new Movimento(operacao, valor);
                 movimento.Conta = this;
 
                 Movimentos.Add(movimento);
-            }
+            //}
             return movimento;
 
         }

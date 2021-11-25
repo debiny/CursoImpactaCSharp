@@ -2,6 +2,7 @@
 using Fintech.Repositories.SistemaArquivos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -192,29 +193,63 @@ namespace Fintech.Correntista.Wpf
 
         private void incluirOperacaoButton_Click(object sender, RoutedEventArgs e)
         {
-            var conta = (Conta)contaComboBox.SelectedItem;
-            var operacao = (Operacao)operacaoComboBox.SelectedItem;
-            var valor = Convert.ToDecimal(valorTextBox.Text);
+            try
+            {
+                var conta = (Conta)contaComboBox.SelectedItem;
+                var operacao = (Operacao)operacaoComboBox.SelectedItem;
+                var valor = Convert.ToDecimal(valorTextBox.Text);
 
-            var movimento =conta.EfetuarOperacao(valor, operacao);
+                var movimento = conta.EfetuarOperacao(valor, operacao);
 
-            if (movimento == null) return;
-     
-            repositorio.Inserir(movimento);
+                if (movimento == null) return;
 
-            movimentacaoDataGrid.ItemsSource = conta.Movimentos;
-            movimentacaoDataGrid.Items.Refresh();
+                repositorio.Inserir(movimento);
 
-            saldoTextBox.Text = conta.Saldo.ToString("C");
+                movimentacaoDataGrid.ItemsSource = conta.Movimentos;
+                movimentacaoDataGrid.Items.Refresh();
+
+                saldoTextBox.Text = conta.Saldo.ToString("C");
+            }
+            catch(FileNotFoundException ex)
+            {
+                MessageBox.Show($"Arquivo {ex.FileName} nao encontrado");
+
+            }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show($"Arquivo {Properties.Settings.Default.CaminhoArquivoMovimento} nao encontrado");
+
+            }
+            catch(SaldoInsuficienteException ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ops!");
+                //LogarErro(ex);
+                //log4net
+            }
+            finally
+            {
+                //executado independende de sucesso ou erro, mesmo que haja um return no codigo
+            }
         }
 
         private void contaComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            mainSpinner.Visibility = Visibility.Visible;
             if (contaComboBox.SelectedIndex == -1) return;
 
             var conta = (Conta)contaComboBox.SelectedItem;
 
             conta.Movimentos = repositorio.Selecionar(conta.Agencia.Numero, conta.Numero);
+
+            mainSpinner.Visibility = Visibility.Hidden;
+
+
             movimentacaoDataGrid.ItemsSource = conta.Movimentos;
             saldoTextBox.Text = conta.Saldo.ToString("C");
         }
