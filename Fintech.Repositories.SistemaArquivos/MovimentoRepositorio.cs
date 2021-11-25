@@ -43,7 +43,7 @@ namespace Fintech.Repositories.SistemaArquivos
 
         public List<Movimento> Selecionar(int numeroAgencia, int numeroConta)
         {
-            Thread.Sleep(7000);
+            //Thread.Sleep(7000);
 
             var movimentos = new List<Movimento>();
 
@@ -77,7 +77,7 @@ namespace Fintech.Repositories.SistemaArquivos
 
         public async Task<List<Movimento>> SelecionarAsync(int numeroAgencia, int numeroConta)
         {
-            await Task.Delay(7000);
+            //await Task.Delay(7000);
 
             var movimentos = new List<Movimento>();
 
