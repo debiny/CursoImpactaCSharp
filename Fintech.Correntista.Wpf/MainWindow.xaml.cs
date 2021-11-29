@@ -1,5 +1,6 @@
 ﻿using Fintech.Dominio.Entidades;
-using Fintech.Repositories.SistemaArquivos;
+using Fintech.Repositorios.SqlServer;
+//using Fintech.Repositories.SistemaArquivos;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +16,8 @@ namespace Fintech.Correntista.Wpf
     {
         List<Cliente> clientes = new();
         Cliente clienteSelecionado;
-        private readonly MovimentoRepositorio repositorio = new(Properties.Settings.Default.CaminhoArquivoMovimento);
+        //private readonly MovimentoRepositorio repositorio = new(Properties.Settings.Default.CaminhoArquivoMovimento);
+        private readonly MovimentoRepositorio repositorio = new(Properties.Settings.Default.StringConexaoFintech);
 
         //contrutor é o método que tem o mesmo nome da classe
         public MainWindow()
